@@ -16,7 +16,7 @@ extra-source-files:  ChangeLog.md
 cabal-version:       >=1.10
 
 library
-  -- exposed-modules:
+  exposed-modules:    Java.Reflection.Types
   -- other-modules:
   -- other-extensions:
   build-depends:       base >=4.8 && <4.9

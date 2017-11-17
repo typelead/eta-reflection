@@ -1,12 +1,13 @@
-{-# LANGUAGE DataKinds, TypeFamilies #-}
+{-# LANGUAGE DataKinds, TypeFamilies, TypeOperators #-}
 module Java.Reflection.Types where
 
 import Java
 import Java.Array
-import Java Exception
+import Java.Exception
 import Java.Utils
+import Data.Typeable
 
-data AccessibleObject = AccessibleObject (@java.lang.reflect.AccessibleObject)
+data AccessibleObject = AccessibleObject @java.lang.reflect.AccessibleObject
   deriving Class
 
 -- Start java.lang.reflect.AccessibleObject
@@ -26,7 +27,7 @@ foreign import java unsafe setAccessible :: Bool -> Java AccessibleObject ()
 
 -- End java.lang.reflect.AccessibleObject
 
-data Annotation = Annotation (@java.lang.annotation.Annotation)
+data Annotation = Annotation @java.lang.annotation.Annotation
   deriving Class
 
 -- Start java.lang.annotation.Annotation
@@ -40,7 +41,7 @@ foreign import java unsafe "@interface equals" equalsAnnotation :: Object -> Jav
 
 -- Start java.lang.annotation.AnnotationArray
 
-data AnnotationArray = AnnotationArray (@java.lang.annotation.Annotation[])
+data AnnotationArray = AnnotationArray @java.lang.annotation.Annotation[]
   deriving Class
 
 instance JArray Annotation AnnotationArray
@@ -49,7 +50,7 @@ instance JArray Annotation AnnotationArray
 
 -- Start java.lang.annotation.AnnotationDoubleArray
 
-data AnnotationDoubleArray = AnnotationDoubleArray (@java.lang.annotation.Annotation[][])
+data AnnotationDoubleArray = AnnotationDoubleArray @java.lang.annotation.Annotation[][]
   deriving Class
 
 instance JArray Annotation AnnotationDoubleArray
@@ -58,7 +59,7 @@ instance JArray Annotation AnnotationDoubleArray
 
 -- Start java.lang.reflect.Array
 
-data Array = Array (@java.lang.reflect.Array)
+data Array = Array @java.lang.reflect.Array
   deriving Class
 
 -- End java.lang.reflect.Array
@@ -98,14 +99,14 @@ foreign import java unsafe toGenericString :: (t <: Object) -> Java (Constructor
 
 -- Start java.lang.reflect.Type
 
-data Type = Type (@java.lang.reflect.Type)
+data Type = Type @java.lang.reflect.Type
   deriving Class
 
 -- End java.lang.reflect.Type
 
 -- Start java.lang.reflect.TypeArray
 
-data TypeArray = TypeArray (@java.lang.reflect.Type[])
+data TypeArray = TypeArray @java.lang.reflect.Type[]
   deriving Class
 
 instance JArray Type TypeArray
@@ -114,7 +115,7 @@ instance JArray Type TypeArray
 
 -- Start java.lang.reflect.Field
 
-data Field = Field (@java.lang.reflect.Field)
+data Field = Field @java.lang.reflect.Field
   deriving Class
 
 type instance Inherits Field = '[AccessibleObject, Object]
@@ -131,7 +132,7 @@ foreign import java unsafe getFloat :: Object -> Java Field Float
 
 foreign import java unsafe getInt :: Object -> Java Field Int
 
-foreign import java unsafe getLong :: Object -> Java Field Long
+foreign import java unsafe getLong :: Object -> Java Field JLong
 
 foreign import java unsafe getShort :: Object -> Java Field Short
 
@@ -153,7 +154,7 @@ foreign import java unsafe setFloat :: Object -> Float -> Java Field ()
 
 foreign import java unsafe setInt :: Object -> Int -> Java Field ()
 
-foreign import java unsafe setLong :: Object -> Long -> Java Field ()
+foreign import java unsafe setLong :: Object -> JLong -> Java Field ()
 
 foreign import java unsafe setShort :: Object -> Short -> Java Field ()
 
@@ -161,7 +162,7 @@ foreign import java unsafe setShort :: Object -> Short -> Java Field ()
 
 -- Start java.lang.reflect.Method
 
-data Method = Method (@java.lang.reflect.Method)
+data Method = Method @java.lang.reflect.Method
   deriving Class
 
 type instance Inherits Method = '[AccessibleObject, Object]
@@ -170,7 +171,7 @@ type instance Inherits Method = '[AccessibleObject, Object]
 
 -- Start java.lang.reflect.Modifier
 
-data Modifier = Modifier (@java.lang.reflect.Modifier)
+data Modifier = Modifier @java.lang.reflect.Modifier
   deriving Class
 
 foreign import java unsafe "@static @field java.lang.Modifier.ABSTRACT" modABSTRACT :: Modifier
@@ -200,16 +201,16 @@ foreign import java unsafe "@static @field java.lang.Modifier.VOLATILE" modVOLAT
 
 -- End java.lang.reflect.Modifier
 
--- Start java.lang.reflect.Proxy
-
-data Proxy = Proxy (@java.lang.reflect.Proxy)
-  deriving Class
-
--- End java.lang.reflect.Proxy
+-- -- Start java.lang.reflect.Proxy
+--
+-- data Proxy = Proxy @java.lang.reflect.Proxy
+--   deriving Class
+--
+-- -- End java.lang.reflect.Proxy
 
 -- Start java.lang.reflect.ReflectPermission
 
-data ReflectPermission = ReflectPermission (@java.lang.reflect.ReflectPermission)
+data ReflectPermission = ReflectPermission @java.lang.reflect.ReflectPermission
   deriving Class
 
 type instance Inherits ReflectPermission = '[BasicPermission, Permission]
@@ -218,7 +219,7 @@ type instance Inherits ReflectPermission = '[BasicPermission, Permission]
 
 -- Start java.lang.reflect.AnnotatedElement
 
-data AnnotatedElement = AnnotatedElement (@java.lang.reflect.AnnotatedElement)
+data AnnotatedElement = AnnotatedElement @java.lang.reflect.AnnotatedElement
   deriving Class
 
 foreign import java unsafe "@interface getAnnotation" getAnnotationAE :: (t <: Annotation)
@@ -235,7 +236,7 @@ foreign import java unsafe "@interface isAnnotationPresent" isAnnotationPresentA
 
 -- Start java.lang.reflect.GenericArrayType
 
-data GenericArrayType = GenericArrayType (@java.lang.reflect.GenericArrayType)
+data GenericArrayType = GenericArrayType @java.lang.reflect.GenericArrayType
   deriving Class
 
 foreign import java unsafe "@interface getGenericComponentType" getGenericComponentType ::
@@ -245,28 +246,28 @@ foreign import java unsafe "@interface getGenericComponentType" getGenericCompon
 
 -- Start java.lang.reflect.GenericDeclaration
 
-data GenericDeclaration = GenericDeclaration (@java.lang.reflect.GenericDeclaration)
+data GenericDeclaration = GenericDeclaration @java.lang.reflect.GenericDeclaration
   deriving Class
 
 -- End java.lang.reflect.GenericDeclaration
 
 -- Start java.lang.reflect.InvocationHandler
 
-data InvocationHandler = InvocationHandler (@java.lang.reflect.InvocationHandler)
+data InvocationHandler = InvocationHandler @java.lang.reflect.InvocationHandler
   deriving Class
 
 -- End java.lang.reflect.InvocationHandler
 
 -- Start java.lang.reflect.Member
 
-data Member = Member (@java.lang.reflect.Member)
+data Member = Member @java.lang.reflect.Member
   deriving Class
 
 -- End java.lang.reflect.Member
 
 -- Start java.lang.reflect.ParameterizedType
 
-data ParameterizedType = ParameterizedType (@java.lang.reflect.ParameterizedType)
+data ParameterizedType = ParameterizedType @java.lang.reflect.ParameterizedType
   deriving Class
 
 -- End java.lang.reflect.ParameterizedType
@@ -280,14 +281,14 @@ data TypeVariable d = TypeVariable (@java.lang.reflect.TypeVariable d)
 
 -- Start java.lang.reflect.WildcarType
 
-data WildcardType = WildcardType (@java.lang.reflect.WildcardType)
+data WildcardType = WildcardType @java.lang.reflect.WildcardType
   deriving Class
 
 -- End java.lang.reflect.WildcardType
 
 -- Start java.lang.reflect.InvocationTargetException
 
-data InvocationTargetException = InvocationTargetException (@java.lang.reflect.InvocationTargetException)
+data InvocationTargetException = InvocationTargetException @java.lang.reflect.InvocationTargetException
   deriving (Class, Typeable)
 
 type instance Inherits InvocationTargetException = '[ReflectiveOperationException, Exception]
@@ -296,7 +297,7 @@ type instance Inherits InvocationTargetException = '[ReflectiveOperationExceptio
 
 -- Start java.lang.reflect.MalformedParameterizedTypeException
 
-data MalformedParameterizedTypeException = MalformedParameterizedTypeException (@java.lang.reflect.MalformedParameterizedTypeException)
+data MalformedParameterizedTypeException = MalformedParameterizedTypeException @java.lang.reflect.MalformedParameterizedTypeException
   deriving (Class, Typeable)
 
 type instance Inherits MalformedParameterizedTypeException = '[RuntimeException, Exception]
@@ -305,7 +306,7 @@ type instance Inherits MalformedParameterizedTypeException = '[RuntimeException,
 
 -- Start java.lang.reflect.UndeclaredThrowableException
 
-data UndeclaredThrowableException = UndeclaredThrowableException (@java.lang.reflect.UndeclaredThrowableException)
+data UndeclaredThrowableException = UndeclaredThrowableException @java.lang.reflect.UndeclaredThrowableException
   deriving (Class, Typeable)
 
 type instance Inherits UndeclaredThrowableException = '[RuntimeException, Exception]
